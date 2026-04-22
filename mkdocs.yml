@@ -1,0 +1,70 @@
+site_name: Mutation Generator Dokumentáció
+site_description: 'A hivatalos, publikus leírás és használati útmutató a Mutation Generator projekthez.'
+site_author: 'Ivaszjuk András (Nvirs)'
+repo_url: 'https://github.com/Nvirs/Mutation-Generator'
+
+theme:
+  name: material
+  logo: assets/logo.png
+  
+  
+  # szinek beallitasa
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Sötét módra váltás
+    
+    # sotet mod  
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Világos módra váltás
+
+  
+  features:
+    - navigation.tabs 
+    - navigation.sections 
+    - navigation.top
+    - search.suggest 
+    - search.highlight 
+    - content.code.copy 
+
+# navigacios struktura beallitasa
+nav:
+  - Kezdőlap: index.md
+  - Tervezés és Rendszerleírás:
+      - Architektúra: SQL_MUTATION_GENERATOR_TERVEZES.md
+      - LLM Részletek: LLM_PONTOS_LEIRAS.md
+  - API és Felületek:
+      - API Dokumentáció: API_WEB.md
+      - Log Stream Guide: LOG_STREAM_GUIDE.md
+  - Környezet beállítása:
+      - DVWA Setup: DVWA_SETUP.md
+      - VPS Docker Demo: VPS_DOCKER_DEMO.md
+  - Használat és Tesztelés:
+      - DVWA Gyors Útmutató: DVWA_GYORS_UTMUTATO.md
+      - Manuális SQLi Teszt: DVWA_MANUAL_LOGIN_SQLI.md
+      - DVWA Logok: DVWA_LOGS.md
+
+# beepulo modulok (pl. kereses)
+plugins:
+  - search
+
+# extra Markdown formazasok tamogatasa
+markdown_extensions:
+  - admonition # Színes kiemelt dobozok (Info, Figyelmeztetés stb.)
+  - pymdownx.details # Összecsukható blokkok
+  - pymdownx.superfences # Fejlettebb kódblokkok
+  - pymdownx.highlight: # Kódkiszínezés
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite # Soron belüli kódkiszínezés
+  - pymdownx.magiclink # Linkek automatikus felismerése
