@@ -1,8 +1,9 @@
-# Mutation Generator Dokumentacio
+# Mutation Generator Dokumentáció
 
-Mutation Generator hivatalos dokumentációjában.
+Mutation Generator hivatalos dokumentációja
 
 Itt talalja a projektet:
+
 - tervezési es architekturális leirasát,
 - API es feluleti dokumentaciojat,
 - telepitési es futtatási útmutatóit,
