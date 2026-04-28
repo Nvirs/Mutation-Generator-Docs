@@ -1,140 +1,64 @@
-# Web UI Útmutató - SQLi Payload Mutator
+# API + Web UI Útmutató
 
 ## Áttekintés
 
-A web alapú felület modern, böngészőben futó interfészt biztosít az SQLi Payload Mutator eszközhöz. Az architektúra FastAPI backendet és tiszta HTML/CSS/JavaScript frontendet használ.
+A projekt ket kulon webes feluletet es egy FastAPI backendet tartalmaz:
 
-### Biztonsági Tervezés
+- Payload UI: mutaciok generalasa + DVWA teszteles
+- Log UI: valos ideju naplofigyeles (SSE) + LLM elemzes
+- Backend: kozos API mindket felulethez
 
-- **Elkülönítés**: A UI nem csatlakozik közvetlenül a célrendszerhez
-- **Validáció**: Kliens és szerver oldali input validáció
-- **Hitelesítés**: Opcionális DVWA login támogatás
-- **Korlátozás**: CORS korlátozva localhost-ra
-- **Védelem**: Nincs eval(), dinamikus kódvégrehajtás vagy OS parancs futtatás
+## Gyors índitas
 
-## Telepítés
-
-### 1. Függőségek telepítése
+### 1. Függősegek
 
 ```bash
-# Navigáljon a projekt könyvtárába
-cd "projekt könyvtár"
-
-# Telepítse a szükséges csomagokat
 pip install -r requirements.txt
 ```
 
-### 2. Backend elindítása
+### 2. Backend índitas
 
 ```bash
-# FastAPI szerver indítása
-cd app 
-python api.py
+uvicorn app.api:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-Vagy közvetlenül uvicorn-nal:
+### 3. Frontend índitas
 
 ```bash
-uvicorn api:app --host 127.0.0.1 --port 8000 --reload
+cd web
+python -m http.server 8001
 ```
 
-A szerver a következő címen lesz elérhető: `http://127.0.0.1:8000`
+Oldalak:
 
-### 3. Frontend megnyitása
+- Payload UI: `http://127.0.0.1:8001/payload_frontend/html/index.html`
+- Log UI: `http://127.0.0.1:8001/logstream_frontend/html/log_viewer.html`
 
-Egyszerűen nyissa meg az `index.html` fájlt egy böngészőben:
+Megjegyzes: a `payload_frontend/js/script.js` jelenleg fixen a `http://127.0.0.1:8000` API cimet hasznalja.
 
-```bash
-# Windows PowerShell
-start index.html
+## API végpontok (jelenlegi állapot)
 
-# Vagy közvetlenül a böngészőből: File -> Open
-```
+### Alap
 
-**Megjegyzés**: A frontend működéséhez a backend szervernek futnia kell!
+- `GET /`
+  - API informacio es endpoint lista
 
-## Használat
+### Payload kezelés
 
-### 1. Mutation Generálás
+- `GET /api/categories`
+  - payload kategoriak es elemszam
 
-1. **Base Payload megadása**: Írja be egy alapvető SQL injection payloadot
-   - Példa: `' OR '1'='1`
-   - Maximum 500 karakter
+- `GET /api/payloads/{category}`
+  - payload lista egy kategoriabol
 
-2. **Mutation Strategies kiválasztása**:
-   - URL Encoding
-   - Comment Injection
-   - Whitespace Variation
-   - Case Variation
+- `GET /api/config`
+  - UI-hoz adott default tesztelesi beallitasok (`target_url`, `login_url`, `username`, `security_level`)
 
+- `POST /api/generate`
+  - mutaciok generalasa
 
-3. **Maximum Mutations**: Állítssa be a generálandó mutációk számát (1-200)
+Request:
 
-4. Kattintson a **"Generate Mutations"** gombra
-
-### 2. Payload Tesztelés
-
-1. **Target URL**: Adjon meg a DVWA végpont URL-jét
-   - **Docker-ben (ajánlott)**: `http://dvwa/vulnerabilities/sqli/`
-   - **Localhostos fejlesztésben**: `http://localhost:8080/vulnerabilities/sqli/`
-   - **VPS-en**: `http://YOUR_VPS_IP:8080/vulnerabilities/sqli/` vagy `http://YOUR_DOMAIN:8080/vulnerabilities/sqli/`
-
-2. **Injection Parameter**: Adjon meg a paraméter nevét
-   - Példa: `id`
-
-3. **Authentication (opcionális)**:
-   - **Docker-ben (ajánlott)**: `http://dvwa/login.php`
-   - **Localhostos fejlesztésben**: `http://localhost:8080/login.php`
-   - Username: `admin`
-   - Password: `password`
-
-4. **Security Level**: Válassza ki a DVWA biztonsági szintjét
-   - Low, Medium, High, vagy Impossible
-
-5. Kattintson a **"Execute Against Target"** gombra
-
-### Docker-kompatibilis Konfigurálás
-
-Ha Docker Compose-ban futtatja a rendszert, az API konténer a `vulnerable_net` hálózaton van, ezért **a `localhost:8080` helyett a `dvwa` Docker hostname-t kell használni**.
-
-**Helyesen (Docker-ben):**
-- Target URL: `http://dvwa/vulnerabilities/sqli/`
-- Login URL: `http://dvwa/login.php`
-
-**Helytelenül (nem működik Docker-ben):**
-- Target URL: `http://localhost:8080/vulnerabilities/sqli/` - *Connection refused*
-- Login URL: `http://localhost:8080/login.php` - *Connection refused*
-
-### 3. Eredmények értelmezése
-
-Az eredmények különböző kategóriákba sorolva jelennek meg:
-
-- **Success**: A payload sikeresen végrehajtódott
-- **Failed**: A payload blokkolva lett vagy hibát okozott
-
-Minden eredmény tartalmazza:
-- A payloadot
-- HTTP status kódot
-- Válasz méretét
-- Hibaüzeneteket (ha vannak)
-
-## API Végpontok
-
-A backend a következő REST API végpontokat biztosítja:
-
-### `GET /`
-Health check és API információk
-
-### `GET /api/categories`
-Elérhető payload kategóriák listája
-
-### `GET /api/payloads/{category}`
-Egy adott kategória payloadjainak lekérdezése
-
-### `POST /api/generate`
-Mutation generálás
-
-**Request Body**:
 ```json
 {
   "base_payload": "' OR '1'='1",
@@ -143,7 +67,8 @@ Mutation generálás
 }
 ```
 
-**Response**:
+Valasz (minta):
+
 ```json
 {
   "success": true,
@@ -156,28 +81,32 @@ Mutation generálás
       "explanation": "Karakterek URL kodolassal"
     }
   ],
-  "total_count": 50,
-  "timestamp": "2025-12-13T10:30:00"
+  "total_count": 1,
+  "timestamp": "2026-02-10T10:30:00"
 }
 ```
 
-### `POST /api/test`
-Payloadok tesztelése cél ellen
+### DVWA tesztelés
 
-**Request Body**:
+- `POST /api/test`
+  - mutalt payloadok futtatasa a cel URL ellen
+
+Request:
+
 ```json
 {
-  "target_url": "http://yourip/DVWA/vulnerabilities/sqli/",
+  "target_url": "http://localhost/vulnerabilities/sqli/",
   "parameter": "id",
   "payloads": ["' OR '1'='1", "admin'--"],
-  "login_url": "http://yourip/DVWA/login.php",
+  "login_url": "http://localhost/login.php",
   "username": "admin",
   "password": "password",
   "security_level": "low"
 }
 ```
 
-**Response**:
+Valasz (minta):
+
 ```json
 {
   "success": true,
@@ -186,97 +115,123 @@ Payloadok tesztelése cél ellen
       "payload": "' OR '1'='1",
       "success": true,
       "status_code": 200,
-      "response_length": 4567
+      "response_length": 4567,
+      "blocked": false,
+      "vulnerable": true,
+      "errors": []
     }
   ],
   "total_tested": 2,
   "successful_bypasses": 1,
-  "timestamp": "2025-12-13T10:35:00"
+  "timestamp": "2026-02-10T10:35:00"
 }
 ```
 
-## Biztonsági Szempontok
+### LLM analyze
 
-### Input Validáció
+- `POST /api/analyze`
+  - egy naplosor strukturalt LLM elemzese
+  - IP alapu rate limit van az endpointon
 
-**Kliens oldal (JavaScript)**:
-- URL formátum ellenőrzés
-- Paraméter név validáció (csak alfanumerikus)
-- Payload hossz korlátozás (max 500 karakter)
-- Null byte detektálás
+Request:
 
-**Szerver oldal (FastAPI + Pydantic)**:
-- Típus ellenőrzés
-- Értéktartomány validáció
-- URL séma ellenőrzés (csak HTTP/HTTPS)
-- Whitelist alapú strategy ellenőrzés
-
-### Védelmek
-
-1. **XSS Védelem**: `textContent` használata `innerHTML` helyett
-2. **Code Injection Védelem**: Nincs `eval()`, dinamikus kódvégrehajtás
-3. **CORS Védelem**: Korlátozva localhost-ra
-4. **Rate Limiting**: Mutation és request limitek
-5. **Error Handling**: Globális exception handler, nincs sensitive info leakage
-
-
-
-## Hibaelhárítás
-
-### "Failed to fetch" hiba
-
-**Probléma**: A frontend nem tudja elérni a backendet
-
-**Megoldás**:
-1. Ellenőrizze, hogy a backend fut-e: `http://127.0.0.1:8000`
-2. Nézze meg a böngésző konzolt (F12) CORS hibákért
-3. Ellenőrizze a firewall beállításokat
-
-### CORS hiba
-
-**Probléma**: Cross-Origin Request Blocked
-
-**Megoldás**:
-- Nyissa meg az `index.html`-t a következő URL-ről: `http://localhost:8000` vagy `http://127.0.0.1:8000`
-- Vagy használja egyszerű HTTP szervert:
-  ```bash
-  python -m http.server 8001
-  # Majd nyissa meg: http://localhost:8001/index.html
-  ```
-
-### Payloadok nem működnek
-
-**Probléma**: Minden payload "Failed" eredményt ad
-
-**Megoldás**:
-1. Ellenőrizze a DVWA VM IP címét
-2. Ellenőrizze, hogy a DVWA fut-e és elérhető
-3. Ellenőrizze a security level beállítást
-4. Próbálja ki először a "low" security levelet
-5. Ellenőrizze az authentication credentialokat
-
-### Backend importálási hibák
-
-**Probléma**: `ModuleNotFoundError`
-
-**Megoldás**:
-```bash
-# Telepítse újra a függőségeket
-pip install -r requirements.txt
-
-# Vagy egyenként:
-pip install fastapi uvicorn pydantic
+```json
+{
+  "log_line": "ModSecurity: Access denied with code 403 ... [id \"942100\"]",
+  "http_status": "403",
+  "timestamp": "2026-02-10T10:40:00"
+}
 ```
-## API Dokumentáció
 
-A FastAPI automatikus API dokumentációt biztosít:
+Valasz (minta):
 
-- **Swagger UI**: `http://127.0.0.1:8000/docs`
-- **ReDoc**: `http://127.0.0.1:8000/redoc`
+```json
+{
+  "success": true,
+  "analysis": {
+    "payload": "OR 1=1",
+    "blocked": true,
+    "rules_triggered": [942100],
+    "libinjection_fingerprint": "s&sos",
+    "total_anomaly_score": 8
+  },
+  "timestamp": "2026-02-10T10:40:01"
+}
+```
 
-## Licenc és Felelősség
-Ez az eszköz egyetemi szakdolgozati projekthez készült, kizárólag oktatási és kutatási célokra.
+### Log stream
 
-**Verzió**: 1.0.1  
-**Utolsó frissítés**: 2026-04-13  
-**Szerző**: Egyetemi szakdolgozati projekt
+- `GET /api/logs`
+  - logforrasok listazasa
+  - token kotelezo (`X-Log-Token` header vagy `token` query)
+
+- `GET /api/logs/stream`
+  - SSE stream (`text/event-stream`)
+  - kotelezo queryk: `source`, `tail`, `token`
+
+## Modell-validáciok (backend)
+
+### `MutationRequest`
+
+- `base_payload`: 1..500 karakter, null byte tiltva
+- `strategies`: whitelistelt strategiak
+- `max_mutations`: 1..200
+
+### `TestRequest`
+
+- URL mezok: csak `http` vagy `https`
+- `parameter`: csak `[a-zA-Z0-9_]`
+- `payloads`: maximum 100 elem
+- `security_level`: `low | medium | high | impossible`
+
+### `AnalysisRequest`
+
+- kotelezo: `log_line`, `http_status`
+- opcionlis: `timestamp`
+
+## Frontend működes röviden
+
+### Payload UI (`web/payload_frontend`)
+
+- kategoriak: `/api/categories`
+- kategoriabeli payloadok: `/api/payloads/{category}`
+- fallback mod: ha API nem erheto el, helyi `payloads.json` olvasasa
+- generalas: `/api/generate`
+- futtatas: `/api/test`
+
+### Log UI (`web/logstream_frontend`)
+
+- forrasok: `/api/logs`
+- stream: `/api/logs/stream`
+- soronkenti LLM elemzes gomb: `/api/analyze`
+
+## Docker használatnál fontos
+
+Kontenerben az API-bol a DVWA host neve altalaban `dvwa`, ezert tipikusan:
+
+- `target_url`: `http://dvwa/vulnerabilities/sqli/`
+- `login_url`: `http://dvwa/login.php`
+
+## Hibaelharitás
+
+### Failed to fetch
+
+1. Ellenorizd, fut-e az API: `http://127.0.0.1:8000/`
+2. Ellenorizd a browser konzolt (CORS vagy halozati hiba)
+3. Ellenorizd, hogy a frontend nem masik geprol hivja a localhost API-t
+
+### Log stream 401 (Unauthorized)
+
+1. Ellenorizd a tokent
+2. API ujrainditas utan random token valtozhat, ha nincs fix `LOG_STREAM_TOKEN`
+3. Toltsd ujra a forrasokat a log UI-ban
+
+### API dokumentáció
+
+- Swagger: `http://127.0.0.1:8000/docs`
+- ReDoc: `http://127.0.0.1:8000/redoc`
+
+## Verziós állápot
+
+- API verzio: `1.0.1`
+- Dokumentacio frissitve: `2026-04-15`

@@ -1,11 +1,15 @@
 site_name: Mutation Generator Dokumentáció
 site_description: 'A hivatalos, publikus leírás és használati útmutató a Mutation Generator projekthez.'
 site_author: 'Ivaszjuk András (Nvirs)'
-repo_url: 'https://github.com/Nvirs/Mutation-Generator'
+repo_url: 'https://github.com/Nvirs'
 
 theme:
   name: material
   logo: assets/logo.png
+  language: hu
+  font:
+    text: Space Mono
+    code: JetBrains Mono
   
   
   # szinek beallitasa
@@ -29,12 +33,16 @@ theme:
 
   
   features:
-    - navigation.tabs 
+    - navigation.tabs
     - navigation.sections 
     - navigation.top
+    - toc.follow
     - search.suggest 
     - search.highlight 
     - content.code.copy 
+
+extra_css:
+  - assets/stylesheets/extra.css
 
 # navigacios struktura beallitasa
 nav:

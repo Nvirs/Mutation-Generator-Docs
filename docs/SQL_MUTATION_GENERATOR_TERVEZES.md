@@ -21,7 +21,8 @@ A projekt három fő rétegre osztható:
 1. **Core Engine (domain logika)**
    - `app/payload_database.py`
    - `app/payload_mutator.py`
-   - `app/tester.py`
+   - `app/services/dvwa_client.py`
+   - `app/services/payload_tester.py`
 
 2. **Interfész réteg**
    - REST API: `app/api.py`
@@ -43,13 +44,21 @@ A projekt három fő rétegre osztható:
 ### 3.2. `app/` modul
 - `payload_database.py`: payload adatforrás kezelés
 - `payload_mutator.py`: mutációs stratégiák és transzformációk
-- `tester.py`: HTTP alapú payload tesztelés és report
 - `api.py`: FastAPI endpointok a webes vezérléshez
 - `log_routes.py`: log listázás és real-time stream (SSE)
+- `vegpontok/`: generate, test, analyze endpoint implementációk
+- `services/dvwa_client.py`: DVWA session és login kezelés
+- `services/payload_tester.py`: payload futtatás és eredményklasszifikáció
+- `services/log_streamer.py`: local/ssh log olvasás + SSE események
+- `core/security.py`: token validáció, rate limiter, URL normalizáció
 
 ### 3.3. `web/` modul
-- `index.html`, `script.js`, `styles.css`: fő web UI
-- `log_viewer.html`, `log_viewer.js`, `log_viewer_styles.css`: log megfigyelő felület
+- `payload_frontend/html/index.html`: fő payload UI
+- `payload_frontend/js/script.js`: payload UI klienslogika
+- `payload_frontend/css/styles.css`: payload UI stílusok
+- `logstream_frontend/html/log_viewer.html`: log monitor felület
+- `logstream_frontend/js/log_viewer.js`: log monitor klienslogika
+- `logstream_frontend/css/log_viewer_styles.css`: log monitor stílusok
 
 ---
 
@@ -141,13 +150,16 @@ Kimeneti adatmodell (mutáció objektum):
    - mixed
    - random
 
-## 5.3. PayloadTester (`app/tester.py`)
+## 5.3. PayloadTester (`app/services/payload_tester.py`)
 
 Felelősség:
 - HTTP session kezelés retry logikával,
 - DVWA login és security level beállítás,
 - payload végrehajtás és eredményklasszifikáció,
 - összesített report.
+
+Megjegyzés:
+- A session/login és CSRF token kezelés a `DvwaSessionClient` osztályban történik (`app/services/dvwa_client.py`).
 
 ### Teszt logika 
 
@@ -214,7 +226,7 @@ A `pydantic` modellek végeznek védelmi validációt:
 
 ## 7.3. URL normalizáció
 
-A `_normalize_dvwa_url()` korrigál tipikus Docker hibákat:
+A `normalize_dvwa_url()` funkció (`app/core/security.py`, wrapper: `app/services/dvwa_client.py`) korrigál tipikus Docker hibákat:
 - `/dvwa/` útvonal egyszerűsítése,
 - `localhost:API_PORT` → `dvwa` host konverzió konténeres futásnál.
 
@@ -332,7 +344,7 @@ async def stream_log(source: str = Query(...), tail: int = Query(default=100, ge
 - Retry képes HTTP session (`requests` + `urllib3.Retry`)
 - Timeout kezelések minden külső kérésnél
 - Globális FastAPI exception handler
-- Unicode-safe konzol kimenet (`safe_print`)
+- Strukturált naplózás központi logger konfigurációval (`app/core/logging.py`)
 - JSON parse fallback az LLM válaszoknál
 
 Korlátok:

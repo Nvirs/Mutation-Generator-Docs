@@ -17,7 +17,7 @@ Ez az útmutató segít elindítani a DVWA-t Ubuntu Desktopon, az SQLi Payload M
 
 ```bash
 # Script futtatása
-sudo bash quick_start.sh
+sudo bash scripts/quick_start.sh
 ```
 
 Ez a script automatikusan:
@@ -124,5 +124,5 @@ sudo systemctl restart mysql
 
 - Részletes útmutató: [`DVWA_SETUP.md`](DVWA_SETUP.md)
 - DVWA hivatalos dokumentáció: https://github.com/digininja/DVWA
-- Az eszköz dokumentációja: [`README.md`](README.md)
+
 

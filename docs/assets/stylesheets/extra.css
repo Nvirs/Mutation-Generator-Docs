@@ -1,0 +1,54 @@
+/* Dark-indigo visual style similar to the provided reference */
+:root {
+  --mg-surface: #3f425a;
+  --mg-surface-2: #32354a;
+  --mg-sidebar-top: #151a2c;
+  --mg-sidebar-bottom: #0f1220;
+  --mg-header-left: #000000;
+  --mg-header-right: #000000;
+  --mg-accent: #9ec6ff;
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #ffffff;
+  --md-default-fg-color: #333333;
+  --md-primary-fg-color: #1c2024;
+  --md-typeset-a-color: #2c68d4;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #000000;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #5294e2;
+  --md-typeset-a-color: #5294e2;
+}
+
+.md-header {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.md-sidebar--primary .md-nav__title,
+.md-sidebar--primary .md-nav__link {
+  color: #a4a4a4;
+}
+
+.md-sidebar--primary .md-nav__link--active,
+.md-sidebar--primary .md-nav__link:hover {
+  color: #ffffff;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: 0.02em;
+}
+
+.md-typeset code {
+  border: 1px solid rgba(143, 167, 255, 0.25);
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.65rem;
+}
+
