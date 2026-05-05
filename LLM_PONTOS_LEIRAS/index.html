@@ -1,0 +1,1505 @@
+
+<!doctype html>
+<html lang="hu" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A hivatalos, publikus leírás és használati útmutató a Mutation Generator projekthez.">
+      
+      
+        <meta name="author" content="Ivaszjuk András (Nvirs)">
+      
+      
+      
+        <link rel="prev" href="../SQL_MUTATION_GENERATOR_TERVEZES/">
+      
+      
+        <link rel="next" href="../API_WEB/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>LLM Részletek - Mutation Generator Dokumentáció</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space+Mono:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Space Mono";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#llm-modul-pontos-leirasa" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Élőfej">
+    <a href=".." title="Mutation Generator Dokumentáció" class="md-header__button md-logo" aria-label="Mutation Generator Dokumentáció" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mutation Generator Dokumentáció
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LLM Részletek
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Sötét módra váltás"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Sötét módra váltás" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Világos módra váltás"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Világos módra váltás" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Keresés">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Törlés" aria-label="Törlés" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nvirs" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Lapok" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Kezdőlap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../SQL_MUTATION_GENERATOR_TERVEZES/" class="md-tabs__link">
+          
+  
+  
+  Tervezés és Rendszerleírás
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../API_WEB/" class="md-tabs__link">
+          
+  
+  
+  API és Felületek
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../DVWA_SETUP/" class="md-tabs__link">
+          
+  
+  
+  Környezet beállítása
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../DVWA_GYORS_UTMUTATO/" class="md-tabs__link">
+          
+  
+  
+  Használat és Tesztelés
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mutation Generator Dokumentáció" class="md-nav__button md-logo" aria-label="Mutation Generator Dokumentáció" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Mutation Generator Dokumentáció
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nvirs" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kezdőlap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tervezés és Rendszerleírás
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tervezés és Rendszerleírás
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL_MUTATION_GENERATOR_TERVEZES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architektúra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Részletek
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Részletek
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-cel-es-szerep-a-rendszerben" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cél és szerep a rendszerben
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hol-van-implementalva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Hol van implementálva
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-adatfolyam-lepesrol-lepesre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Adatfolyam lépésről lépésre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-konfiguracio-jelenlegi-kulcsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Konfiguráció (jelenlegi kulcsok)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Konfiguráció (jelenlegi kulcsok)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-llm-konfiguracio-llm_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. LLM konfiguráció (LLM_CONFIG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-analyze-biztonsagi-konfiguracio-analyze_security_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Analyze biztonsági konfiguráció (ANALYZE_SECURITY_CONFIG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-promptstrategia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Promptstratégia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-json-kinyeres-mukodese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. JSON-kinyerés működése
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-api-szerzodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. API szerződés
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. API szerződés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-keres-pelda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Kérés (példa)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-sikeres-valasz-pelda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Sikeres válasz (példa)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-tipikus-hiba-valaszok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Tipikus hiba-válaszok
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-biztonsagi-es-megbizhatosagi-szempontok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Biztonsági és megbízhatósági szempontok
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-javasolt-uzemeltetesi-beallitasok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Javasolt üzemeltetési beállítások
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API és Felületek
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API és Felületek
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API_WEB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Dokumentáció
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LOG_STREAM_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log Stream Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Környezet beállítása
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Környezet beállítása
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DVWA_SETUP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DVWA Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VPS_DOCKER_DEMO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPS Docker Demo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Használat és Tesztelés
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Használat és Tesztelés
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DVWA_GYORS_UTMUTATO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DVWA Gyors Útmutató
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DVWA_MANUAL_LOGIN_SQLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manuális SQLi Teszt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DVWA_LOGS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DVWA Logok
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-cel-es-szerep-a-rendszerben" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cél és szerep a rendszerben
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hol-van-implementalva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Hol van implementálva
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-adatfolyam-lepesrol-lepesre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Adatfolyam lépésről lépésre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-konfiguracio-jelenlegi-kulcsok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Konfiguráció (jelenlegi kulcsok)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Konfiguráció (jelenlegi kulcsok)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-llm-konfiguracio-llm_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. LLM konfiguráció (LLM_CONFIG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-analyze-biztonsagi-konfiguracio-analyze_security_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Analyze biztonsági konfiguráció (ANALYZE_SECURITY_CONFIG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-promptstrategia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Promptstratégia
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-json-kinyeres-mukodese" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. JSON-kinyerés működése
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-api-szerzodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. API szerződés
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. API szerződés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-keres-pelda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Kérés (példa)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-sikeres-valasz-pelda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Sikeres válasz (példa)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-tipikus-hiba-valaszok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Tipikus hiba-válaszok
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-biztonsagi-es-megbizhatosagi-szempontok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Biztonsági és megbízhatósági szempontok
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-javasolt-uzemeltetesi-beallitasok" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Javasolt üzemeltetési beállítások
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="llm-modul-pontos-leirasa">LLM modul pontos leírása</h1>
+<h2 id="1-cel-es-szerep-a-rendszerben">1. Cél és szerep a rendszerben</h2>
+<p>A projektben az LLM (Large Language Model) feladata nem a payload generálás, hanem a <strong>naplóelemzés strukturált adatkimenetté alakítása</strong>.</p>
+<p>Az LLM a <code>POST /api/analyze</code> végponton keresztül dolgozik, és a ModSecurity/Apache log sorokból JSON mezőket próbál kinyerni.</p>
+<hr />
+<h2 id="2-hol-van-implementalva">2. Hol van implementálva</h2>
+<ul>
+<li>Endpoint logika: <code>app/vegpontok/analyze.py</code></li>
+<li>Input/output modellek: <code>app/models/analysis.py</code></li>
+<li>LLM és analyze biztonsági konfiguráció: <code>config.py</code></li>
+<li>Input tisztítás: <code>app/core/logging.py</code> (<code>sanitize_log_data</code>)</li>
+<li>Rate limit: <code>app/core/security.py</code> (<code>InMemoryRateLimiter</code>)</li>
+</ul>
+<hr />
+<h2 id="3-adatfolyam-lepesrol-lepesre">3. Adatfolyam lépésről lépésre</h2>
+<ol>
+<li>A kliens meghívja a <code>POST /api/analyze</code> végpontot.</li>
+<li>A kérés tartalma:</li>
+<li><code>log_line</code> (nyers naplóbejegyzés),</li>
+<li><code>http_status</code> (HTTP státusz vagy hibatípus),</li>
+<li>opcionális <code>timestamp</code>.</li>
+<li>Az API kliens-IP alapján rate limitet alkalmaz.</li>
+<li>A bemenetet megtisztítja (<code>sanitize_log_data</code>): hosszlimit, null byte szűrés, nem nyomtatható karakterek eltávolítása.</li>
+<li>A backend OpenAI-kompatibilis <code>chat/completions</code> hívást küld az LM Studio felé.</li>
+<li>A modell válaszából JSON kinyerés történik (<code>_extract_json</code>).</li>
+<li>Siker esetén strukturált <code>analysis</code>, hiba esetén <code>success: false</code> válasz kerül visszaadásra.</li>
+</ol>
+<hr />
+<h2 id="4-konfiguracio-jelenlegi-kulcsok">4. Konfiguráció (jelenlegi kulcsok)</h2>
+<h3 id="41-llm-konfiguracio-llm_config">4.1. LLM konfiguráció (<code>LLM_CONFIG</code>)</h3>
+<ul>
+<li><code>LLM_PROVIDER</code> (default: <code>lmstudio</code>)</li>
+<li><code>LLM_BASE_URL</code> (default: <code>http://127.0.0.1:1234/v1</code>)</li>
+<li><code>LLM_MODEL</code> (default: <code>local-model</code>)</li>
+<li><code>LLM_API_KEY</code> (default: üres)</li>
+<li><code>LLM_TEMPERATURE</code> (default: <code>0.2</code>)</li>
+<li><code>LLM_TIMEOUT_SECONDS</code> (default: <code>30</code>)</li>
+</ul>
+<h3 id="42-analyze-biztonsagi-konfiguracio-analyze_security_config">4.2. Analyze biztonsági konfiguráció (<code>ANALYZE_SECURITY_CONFIG</code>)</h3>
+<ul>
+<li><code>ANALYZE_RATE_LIMIT_PER_MINUTE</code> (default: <code>30</code>)</li>
+<li><code>ANALYZE_MAX_LOG_LINE_CHARS</code> (default: <code>2000</code>)</li>
+<li><code>ANALYZE_MAX_LLM_RESPONSE_CHARS</code> (default: <code>12000</code>)</li>
+</ul>
+<hr />
+<h2 id="5-promptstrategia">5. Promptstratégia</h2>
+<p>Az endpoint két üzenetet küld a modellnek:</p>
+<ol>
+<li><strong>System prompt</strong></li>
+<li>szerep: "ModSec Analyzer",</li>
+<li>cél: OWASP CRS jellegű logokból strukturált mezők kinyerése,</li>
+<li>
+<p>kimeneti elvárás: csak JSON.</p>
+</li>
+<li>
+<p><strong>User prompt</strong></p>
+</li>
+<li>a bemeneti logot és státuszkódot XML-szerű tagek közé teszi,</li>
+<li>explicit módon tiltja a Markdown választ,</li>
+<li>kifejezetten SQLi nyomozási célra kér elemzést.</li>
+</ol>
+<p>A várt kulcsmezők:
+- <code>payload</code>
+- <code>blocked</code>
+- <code>rules_triggered</code>
+- <code>libinjection_fingerprint</code>
+- <code>total_anomaly_score</code></p>
+<hr />
+<h2 id="6-json-kinyeres-mukodese">6. JSON-kinyerés működése</h2>
+<p>Az <code>_extract_json</code> több lépcsőben próbál parse-olni:</p>
+<ol>
+<li>teljes válasz közvetlen <code>json.loads</code>,</li>
+<li>```json kódblokk tartalmának parse-olása,</li>
+<li>általános ``` kódblokk parse,</li>
+<li>első <code>{</code> és utolsó <code>}</code> közti rész parse.</li>
+</ol>
+<p>Ha minden parse lépés hibás, a kód jelenleg egy <strong>fallback</strong> objektumot ad vissza mintaértékekkel.</p>
+<p>Megjegyzés:
+ez a fallback biztosítja, hogy legyen visszatérő struktúra,
+de kutatási/statisztikai célra torzíthatja a mérést, mert nem valódi log-kinyerés eredmény.</p>
+<hr />
+<h2 id="7-api-szerzodes">7. API szerződés</h2>
+<h3 id="71-keres-pelda">7.1. Kérés (példa)</h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;log_line&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ModSecurity: Warning. Matched Data: OR 1=1 ... [id \&quot;942100\&quot;] ...&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;http_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;403&quot;</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-11T12:00:00&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="72-sikeres-valasz-pelda">7.2. Sikeres válasz (példa)</h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;analysis&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OR 1=1&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">&quot;blocked&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">&quot;rules_triggered&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">942100</span><span class="p">,</span><span class="w"> </span><span class="mi">949110</span><span class="p">],</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">&quot;libinjection_fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s&amp;sos&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">&quot;total_anomaly_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-04-11T12:00:01&quot;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="73-tipikus-hiba-valaszok">7.3. Tipikus hiba-válaszok</h3>
+<ul>
+<li><code>429</code> ha rate limit túllépés van.</li>
+<li><code>success: false</code> + "LM Studio nem elérhető..." ha kapcsolat hiba történik.</li>
+<li><code>success: false</code> + "Internal Analysis Error" egyéb futási hibáknál.</li>
+</ul>
+<hr />
+<h2 id="8-biztonsagi-es-megbizhatosagi-szempontok">8. Biztonsági és megbízhatósági szempontok</h2>
+<p>Erősségek:
+- rate limit az analyze végponton,
+- bemeneti méretkorlát és karaktertisztítás,
+- LLM válasz hosszkorlát.</p>
+<p>Kockázatok:
+- prompt injection jellegű log tartalom részben még befolyásolhatja a választ,
+- fallback mintaértékek félrevezethetnek, ha nincs külön jelölve, hogy parse-hiba történt.</p>
+<hr />
+<h2 id="9-javasolt-uzemeltetesi-beallitasok">9. Javasolt üzemeltetési beállítások</h2>
+<ul>
+<li>Strukturált adatkinyeréshez alacsony hőmérséklet: <code>0.0</code> - <code>0.2</code>.</li>
+<li>Stabil, instruction-tuned lokális modell használata.</li>
+<li>Válasz validáció bevezetése (pl. kötelező mezők és típusok ellenőrzése) a parse után.</li>
+<li>Külön beállítások:</li>
+<li>parse sikerességi arány,</li>
+<li>fallback arány,</li>
+<li>átlagos válaszidő,</li>
+<li>hibaarány státuszkód szerint.</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Vissza a tetejére
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.follow", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
