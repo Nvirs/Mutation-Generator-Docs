@@ -216,15 +216,15 @@ Kontenerben az API-bol a DVWA host neve altalaban `dvwa`, ezert tipikusan:
 
 ### Failed to fetch
 
-1. Ellenorizd, fut-e az API: `http://127.0.0.1:8000/`
-2. Ellenorizd a browser konzolt (CORS vagy halozati hiba)
-3. Ellenorizd, hogy a frontend nem masik geprol hivja a localhost API-t
+1. Ellenorizze, fut-e az API: `http://127.0.0.1:8000/`
+2. Ellenorizze a browser konzolt (CORS vagy halozati hiba)
+3. Ellenorizze, hogy a frontend nem masik geprol hivja a localhost API-t
 
 ### Log stream 401 (Unauthorized)
 
-1. Ellenorizd a tokent
+1. Ellenorizze a tokent
 2. API ujrainditas utan random token valtozhat, ha nincs fix `LOG_STREAM_TOKEN`
-3. Toltsd ujra a forrasokat a log UI-ban
+3. Toltse ujra a forrasokat a log UI-ban
 
 ### API dokumentáció
 

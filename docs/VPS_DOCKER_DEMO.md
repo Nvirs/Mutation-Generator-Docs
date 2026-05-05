@@ -17,11 +17,11 @@ Ez az útmutató a projekt biztonságos bemutatásához készült: DVWA + ModSec
 - SSH elérés vagy VPN mögött legyen, vagy IP-re szűrve tűzfalon
 - VS Code a VPS-re Remote SSH-val csatlakozik
 
-Ha a legbiztonságosabb, mégis gyorsan beüzemelhető megoldást keresed, akkor:
+Ha a legbiztonságosabb, mégis gyorsan beüzemelhető megoldást keresi, akkor:
 
 - `Tailscale + SSH kulcs + UFW + fail2ban`
 
-Ha nem akar külön mesh VPN-t, akkor a második legjobb opció:
+Ha nem szeretne külön mesh VPN-t, akkor a második legjobb opció:
 
 - `SSH kulcs + UFW allow csak a saját fix IP-dre + fail2ban`
 
@@ -257,7 +257,7 @@ Windows PowerShell példa a fenti configgal:
 ssh -L 8000:127.0.0.1:8000 szakdoga-vps
 ```
 
-Ha Tailscale-t használsz:
+Ha Tailscale-t használja:
 
 ```powershell
 ssh -L 8000:127.0.0.1:8000 szakdoga-vps-ts

@@ -342,42 +342,10 @@ curl -X POST http://127.0.0.1:8000/api/test \
    }'
 ```
 
-2. Figyeljke a logokat real-time:
+2. Figyelje a logokat real-time:
    - **Access log**: Látod a bejövő HTTP kéréseket
    - **MySQL log**: Látod a végrehajtott SQL query-ket
    - **Error log**: Látod a PHP/SQL hibákat
-
-### Mit Keress a Logokban
-
-#### Sikeres Támadás Jelei:
-
-**Access log:**
-```
-- - [13/Jan/2026:10:23:45] "GET /dvwa/vulnerabilities/sqli/?id=1'+OR+1=1--+ HTTP/1.1" 200 5432
-```
-- Státusz: **200** (sikeres)
-- Payload látható az URL-ben
-
-**MySQL log:**
-```
-SELECT first_name, last_name FROM users WHERE user_id = '1' OR 1=1-- '
-```
-- A payload **végrehajtódott** az adatbázisban
-- Extra sorok visszatértek
-
-#### Blokkolt Támadás Jelei:
-
-**Access log:**
-```
- - - [13/Jan/2026:10:23:45] "GET /dvwa/vulnerabilities/sqli/?id=1'+OR+1=1--+ HTTP/1.1" 403 312
-```
-- Státusz: **403** (tiltva)
-- WAF vagy ModSecurity blokkolta
-
-**Error log:**
-```
-[Wed Jan 13 10:23:45.123456 2026] [security2:error] [pid 12345] ModSecurity: Access denied with code 403
-```
 
 ## 6. Automatizált Log Elemzés
 
@@ -419,20 +387,6 @@ sudo grep -i "sql syntax" /var/log/apache2/error.log | tail -20
 # 1 terminál ablak
 sudo tail -f /var/log/apache2/access.log | grep -i "sqli"
 ```
-
-**Haladó monitoring:**
-```bash
-# 3 terminál ablak egyszerre
-# Terminál 1: Web szerver
-sudo tail -f /var/log/apache2/access.log
-
-# Terminál 2: MySQL
-sudo tail -f /var/log/mysql/query.log
-
-# Terminál 3: Hibák
-sudo tail -f /var/log/apache2/error.log
-```
-
 **Sikeres teszt jele**: Látja a kéréseket a logban, és 200-as státuszkódot kapja.
 
 

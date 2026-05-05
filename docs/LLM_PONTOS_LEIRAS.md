@@ -6,11 +6,6 @@ A projektben az LLM (Large Language Model) feladata nem a payload generálás, h
 
 Az LLM a `POST /api/analyze` végponton keresztül dolgozik, és a ModSecurity/Apache log sorokból JSON mezőket próbál kinyerni.
 
-Fő cél:
-- nyers logszövegből gépileg feldolgozható mezők előállítása,
-- SQLi detekcióhoz kapcsolódó jelzők normalizálása,
-- későbbi statisztikai/forenzikai elemzés támogatása.
-
 ---
 
 ## 2. Hol van implementálva
@@ -142,7 +137,6 @@ Erősségek:
 
 Kockázatok:
 - prompt injection jellegű log tartalom részben még befolyásolhatja a választ,
-- a modellnév és a modellminőség külső tényező (LM Studio oldalon),
 - fallback mintaértékek félrevezethetnek, ha nincs külön jelölve, hogy parse-hiba történt.
 
 ---
@@ -152,7 +146,7 @@ Kockázatok:
 - Strukturált adatkinyeréshez alacsony hőmérséklet: `0.0` - `0.2`.
 - Stabil, instruction-tuned lokális modell használata.
 - Válasz validáció bevezetése (pl. kötelező mezők és típusok ellenőrzése) a parse után.
-- Külön metrika vezetése:
+- Külön beállítások:
   - parse sikerességi arány,
   - fallback arány,
   - átlagos válaszidő,

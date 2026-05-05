@@ -50,8 +50,8 @@ Ez **logikailag** így értelmezendő:
 
 ### Alapbiztos Lépések:
 
-1. **Nyiss meg egy böngészőt** (Chrome, Firefox)
-2. **Navigálj a DVWA-ra:**
+1. **Nyisson meg egy böngészőt** (Chrome, Firefox)
+2. **Navigáljon a DVWA-ra:**
    ```
    http://localhost/dvwa/login.php   (ha local)
    ```
@@ -60,8 +60,8 @@ Ez **logikailag** így értelmezendő:
    Username: admin
    Password: password
    ```
-4. **Setup oldal**: Kattints a **"Create / Reset Database"** gombra az adatbázis inicializálásához.
-5. (Opcionális) **DevTools (F12)** használatával megvizsgálhatod a beviteli mezőket (`<input name="username">`).
+4. **Setup oldal**: Kattintson a **"Create / Reset Database"** gombra az adatbázis inicializálásához.
+5. (Opcionális) **DevTools (F12)** használatával megvizsgálhatja a beviteli mezőket (`<input name="username">`).
 6. **Kijelentkezés (Logout)**. Most már készen állsz a SQLi tesztelésre a Login oldalon.
 
 ---
@@ -83,7 +83,7 @@ Ez **logikailag** így értelmezendő:
 
 ```
 Username:  ' OR '1'='1
-Password:  (hagyj üresen vagy írj bármi)
+Password:  (hagyja üresen vagy írjon bármi)
 ```
 
 A jelszó mező lehet üres vagy tetszőleges, mivel a SQL lekérdezés:
@@ -117,7 +117,7 @@ Ez megmondja, hogy a `users` tábla 3 oszlopból áll (vagy más szám).
 
 ### Mód 2: **Boolean-Based Blind SQLi** (Legfontosabb)
 
-Ha az adatbázis nem jelez hibákat, használj logikai feltételeket:
+Ha az adatbázis nem jelez hibákat, használjon logikai feltételeket:
 
 **Adott payload:**
 ```
@@ -134,9 +134,6 @@ Password: (üres)
 ```
 
 **Eredmény:** Nem sikerül a bejelentkezés → az `1=2` hamis
-
-**Így működik az információgyűjtés:** Logikai feltételekkel kérdezek rá az adatbázisba.
-
 ### Mód 3: **Time-Based Blind SQLi** (Legkönnyebb)
 
 Ha az alkalmazás válaszideje módosítható:
@@ -269,8 +266,8 @@ mysql> SELECT * FROM users;
 ### Utána (az SQLi segítségével):
 
 Az alkalmazás felületen:
-- Bejelentkeztél jelszó nélkül
-- Az admin dashboard-ot látod
+- Bejelentkezett jelszó nélkül
+- Az admin dashboard-ot látja
 
 ---
 
@@ -294,7 +291,7 @@ Password: (üres)
 - **Típus:** Behatárolt SQLi
 - **Feldolgozás:** `mysqli_real_escape_string` (idzőjelek escape-elése)
 - **Védelem:** A bevitelt stringként kezeli
-- **Megjegyzés:** A login username egy string, a `'` escape-elődik `\'`-re. Így az egyszerű string elválasztás alapján készült `' OR 1=1 --` nem fog működni, mivel az adatbázis `\' OR 1=1 --` literál ismérves felhasználónevet próbál megkeresni. Ezért a Medium szint a login mezőben nem sérülékeny könnyen SQL injectionre az egyszerű eszközökkel.
+- **Megjegyzés:** A login username egy string, a `'` escape-elődik `\'`-re. Így az egyszerű string elválasztás alapján készült `' OR 1=1 --` nem fog működni, mivel az adatbázis `\' OR 1=1 --` felhasználónevet próbál megkeresni. Ezért a Medium szint a login mezőben nem sérülékeny egyszerű eszközökkel.
 
 ### High Security
 
@@ -311,21 +308,5 @@ Password: (üres)
 - **Payloads:** Nem működik
 
 ## Összegzés
-
-```
-┌──────────────────────────────────────────────────────┐
-│  DVWA Login SQLi Manuális Tesztelés Forgatókönyv    │
-├──────────────────────────────────────────────────────┤
-│                                                      │
-│ 1. Login oldal böngészőben                          │
-│ 2. Payload beírása: ' OR '1'='1                     │
-│ 3. Jelszó: (üres vagy random)                       │
-│ 4. Login gomb kattintása                            │
-│ 5. EREDMÉNY: Bejelentkezés jelszó nélkül            │
-│ 6. MySQL-ben: SELECT * FROM users                   │
-│    (Megerősítés, hogy az adatok valódiak)           │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
 
 **A legfontosabb:** Az adatbázis válasza közvetlenül a **böngészőben** látható (error) vagy **logikai viselkedésből** (sikeres/sikertelen bejelentkezés) következtethető.

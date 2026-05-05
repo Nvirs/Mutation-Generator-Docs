@@ -71,8 +71,8 @@ Log UI: `http://127.0.0.1:8001/logstream_frontend/html/log_viewer.html`
 
 ### 3. Token bemasolasa
 
-- Ha fix token nincs beallitva, masold ki a backend konzolbol a generalt tokent.
-- Illeszd be a Log UI `Hozzaferesi token` mezobe.
+- Ha fix token nincs beallitva, masolja ki a backend konzolbol a generalt tokent.
+- Illessze be a Log UI `Hozzaferesi token` mezobe.
 
 ### 4. Forrasok betoltese
 
@@ -119,7 +119,7 @@ curl -N "http://127.0.0.1:8000/api/logs/stream?source=apache2_access&tail=10&tok
 
 ## CORS megjegyzes
 
-Alapertelett CORS origin lista a backendben:
+Alapertelmezett CORS origin lista a backendben:
 
 - `http://localhost:8000`
 - `http://127.0.0.1:8000`
@@ -152,12 +152,6 @@ Tovabbi origin hozzaadasa:
 - API nem erheto el
 - reverse proxy timeout
 - rossz token vagy rossz source
-
-## Biztonsagi ajanlas
-
-- Produktion / demo kornyezetben allits fix `LOG_STREAM_TOKEN` erteket.
-- A log stream vegpontokat ne tedd nyilvanos internetre vedelmi reteg nelkul.
-- VPN vagy SSH tunnel hasznalata javasolt (lasd: `docs/VPS_DOCKER_DEMO.md`).
 
 ## Frissitesi datum
 
