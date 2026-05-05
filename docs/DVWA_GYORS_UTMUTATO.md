@@ -1,4 +1,4 @@
-# DVWA Gyors Telepítési Útmutató (Magyar)
+# DVWA Gyors Telepítési Útmutató
 
 ## Rövid összefoglaló
 
@@ -21,6 +21,7 @@ sudo bash scripts/quick_start.sh
 ```
 
 Ez a script automatikusan:
+
 - Telepíti az Apache-t, MySQL-t, PHP-t
 - Letölti és telepíti a DVWA-t
 - Létrehozza az adatbázist
